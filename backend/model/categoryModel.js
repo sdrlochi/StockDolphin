@@ -1,4 +1,3 @@
-
 const mongoose = require("mongoose");
 
 const categorySchema = new mongoose.Schema(
@@ -10,6 +9,11 @@ const categorySchema = new mongoose.Schema(
     imagePath: {
       type: String,
       required: false, // Depending on whether you want to make the image mandatory
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
     },
   },
   { timestamps: true }

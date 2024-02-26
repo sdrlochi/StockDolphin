@@ -1,15 +1,22 @@
 const express = require("express");
 const router = express.Router();
-const categoryController = require("../controller/categoryController");
+const {
+  createCategory,
+  getAllCategories,
+  getCategoryById,
+  updateCategory,
+  deleteCategory,
+} = require("../controller/categoryController");
+const { protect } = require("../middleware/userMiddleware");
 
-router.post("/", categoryController.createCategory);
+router.post("/", protect, createCategory);
 
-router.get("/", categoryController.getAllCategories);
+router.get("/",protect, getAllCategories);
 
-router.get("/:id", categoryController.getCategoryById);
+router.get("/:id",protect, getCategoryById);
 
-router.put("/:id", categoryController.updateCategory);
+router.put("/:id",protect, updateCategory);
 
-router.delete("/:id", categoryController.deleteCategory);
+router.delete("/:id",protect, deleteCategory);
 
 module.exports = router;

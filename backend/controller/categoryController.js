@@ -5,13 +5,14 @@ exports.createCategory = async (req, res) => {
   const { name, imagePath } = req.body;
 
   try {
-    const newCategory = new Category({
+    const category = new Category({
+      user: req.user._id,
       name,
       imagePath,
     });
 
-    await newCategory.save();
-    res.status(201).json(newCategory);
+    const createdCategory = await category.save();
+    res.status(201).json(createdCategory);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -20,7 +21,7 @@ exports.createCategory = async (req, res) => {
 // Get all categories
 exports.getAllCategories = async (req, res) => {
   try {
-    const categories = await Category.find();
+    const categories = await Category.find({ user: req.user._id });
     res.status(200).json(categories);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -31,6 +32,10 @@ exports.getAllCategories = async (req, res) => {
 exports.getCategoryById = async (req, res) => {
   try {
     const category = await Category.findById(req.params.id);
+    if (category.user.toString() !== req.user._id.toString()) {
+      res.status(401);
+      throw new Error("You can't perform this action");
+    }
     if (!category)
       return res.status(404).json({ message: "Category not found" });
     res.status(200).json(category);
@@ -58,6 +63,10 @@ exports.updateCategory = async (req, res) => {
 // Delete a category by id
 exports.deleteCategory = async (req, res) => {
   try {
+    if (category.user.toString() !== req.user._id.toString()) {
+      res.status(401);
+      throw new Error("You can't perform this action");
+    }
     const category = await Category.findByIdAndDelete(req.params.id);
     if (!category)
       return res.status(404).json({ message: "Category not found" });

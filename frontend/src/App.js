@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+// import { useState } from "react";
+import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import LoginScreen from "./screens/LoginScreen/LoginScreen";
+import Dashboard from "./screens/Dashboard/Dashboard";
+import RegisterScreen from "./screens/RegisterScreen/RegisterScreen";
+import InventoryScreen from "./screens/Inventory/InventoryScreen";
+import ItemScreen from "./screens/Item/ItemScreen";
 
 function App() {
+  // const [search, setSearch] = useState();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" Component={LoginScreen} exact />
+        <Route path="/dashboard" Component={Dashboard} />
+        <Route path="/register" Component={RegisterScreen} />
+        <Route path="/inventory" Component={InventoryScreen} />
+        <Route path="/item" Component={ItemScreen} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
