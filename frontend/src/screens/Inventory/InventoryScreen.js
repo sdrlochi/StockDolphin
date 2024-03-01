@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { listCategory } from "../../actions/categoryAction";
 import { useNavigate } from "react-router-dom";
 import "../Inventory/InventoryScreen.css";
+import Header from "../../componenets/header.js/Header";
 
 const InventoryScreen = () => {
   const dispatch = useDispatch();
@@ -51,20 +52,23 @@ const InventoryScreen = () => {
   ]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      {category?.map((category) => (
-        <div onClick={handleClick} className="box" key={category._id}>
-          <h1 className="text">{category.name}</h1>
-          <h3>{category.updatedAt}</h3>
-        </div>
-      ))}
+    <div style={{display: 'flex', flexDirection: "row"}}>
+      <Header />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {category?.map((category) => (
+          <div onClick={handleClick} className="box" key={category._id}>
+            <h1 className="text">{category.name}</h1>
+            <h3>{category.updatedAt}</h3>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
