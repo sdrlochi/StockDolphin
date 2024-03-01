@@ -1,12 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const orderController = require("../controller/orderController");
+const {protect} = require("../middleware/userMiddleware")
 
 // POST request to create a new order
-router.post("/", orderController.createOrder);
+router.post("/",protect, orderController.createOrder);
 
 // GET request for all orders
-router.get("/", orderController.getAllOrders);
+router.get("/",protect, orderController.getAllOrders);
 
 // GET request for a single order by id
 router.get("/:id", orderController.getOrderById);

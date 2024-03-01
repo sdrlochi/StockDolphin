@@ -1,16 +1,59 @@
 .loginContainer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 100px;
-  width: 300px;
+
+  /* gap: 10px; */
+  /* margin: auto; */
+
+  background-color: #eaeaea;
+  width: 100vw;
+  height: 100vh;
 }
 
-.screen {
-  /* width: 100%; */
-  display: flex;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
+.input-container {
+display: flex;
+flex-direction: column;
+}
+
+.custom-input {
+  width: 100%;
+  padding: 10px 15px;
+  margin-bottom: 8px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px; /* Rounded borders */
+  box-sizing: border-box; /* Makes sure padding doesn't affect the total width */
+  transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transition for focus/hover */
+}
+
+.custom-input:focus {
+  border-color: #53a856; /* Change border color on focus */
+  outline: none; /* Remove default focus outline */
+  box-shadow: 0 0 5px #53a856; /* Add a glow effect on focus */
+}
+
+.custom-input:hover {
+  border-color: #53a856; /* Change border color on hover */
+}
+
+.custom-button {
+  margin-bottom: 5px;
+  padding: 10px 20px;
+  font-size: 16px; /* Text size */
+  color: white; /* Text color */
+  background-color: #53a856; /* Background color */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Hand cursor on hover */
+  transition: background-color 0.3s, transform 0.2s; /* Smooth transition for hover and click */
+}
+
+.custom-button:hover {
+  background-color: #347d37; /* Darker shade on hover */
+}
+
+.custom-button:active {
+  transform: scale(0.98); /* Slightly scale down on click */
 }

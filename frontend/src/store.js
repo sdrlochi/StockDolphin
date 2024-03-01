@@ -14,6 +14,13 @@ import {
   categoryUpdateReducer,
 } from "./reducers/categoryReducer";
 
+import {
+  orderListReducer,
+  orderCreateReducer,
+  orderDeleteReducer,
+  orderUpdateReducer,
+} from "./reducers/orderReducer";
+
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
@@ -21,6 +28,10 @@ const reducer = combineReducers({
   categoryDelete: categoryDeleteReducer,
   categoryList: categoryListReducer,
   categoryUpdate: categoryUpdateReducer,
+  orderCreate: orderCreateReducer,
+  orderList: orderListReducer,
+  orderUpdate: orderUpdateReducer,
+  orderDelete: orderDeleteReducer,
 });
 
 const userInfoFromStrage = localStorage.getItem("userInfo")

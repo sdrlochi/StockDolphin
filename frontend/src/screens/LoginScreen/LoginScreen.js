@@ -16,7 +16,7 @@ const LoginScreen = ({ history }) => {
   const { userInfo } = userLogin;
 
   const handleClick = () => {
-    navigate('/register'); 
+    navigate("/register");
   };
 
   useEffect(() => {
@@ -32,23 +32,35 @@ const LoginScreen = ({ history }) => {
   };
 
   return (
-    <div className="screen">
-      <form className="loginContainer" onSubmit={submitHandler}>
-        <input
-          type="email"
-          value={email}
-          placeholder="Enter email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          value={password}
-          placeholder="Enter password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Login</button>
+    <div className="loginContainer">
+      <form onSubmit={submitHandler}>
+        <h3 style={{ marginBottom: "3px" }}>Email:</h3>
+        <div className="input-container">
+          <input
+            className="custom-input"
+            type="email"
+            value={email}
+            placeholder="Enter email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <h3 style={{ marginBottom: "3px" }}>Password:</h3>
+        <div className="input-container">
+          <input
+            className="custom-input"
+            type="password"
+            value={password}
+            placeholder="Enter password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <button className="custom-button" type="submit">
+          Login
+        </button>
+        <button className="custom-button" onClick={handleClick}>
+          Register
+        </button>
       </form>
-      <button onClick={handleClick} >Register</button>
     </div>
   );
 };
