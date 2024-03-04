@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { listCategory } from "../../actions/categoryAction";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +8,9 @@ import Header from "../../componenets/header.js/Header";
 const InventoryScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // const [name, setName] = useState();
+  // const [images, serImages] = useState();
 
   const categoryList = useSelector((state) => state.categoryList);
   const { category } = categoryList;
@@ -58,15 +61,23 @@ const InventoryScreen = () => {
         style={{
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
+          overflow: "auto",
+          height: "100vh",
         }}
       >
         {category?.map((category) => (
-          <div onClick={handleClick} className="box" key={category._id}>
-            <img alt="img" src={category.imageBase64}/>
-            <h1 className="text">{category.name}</h1>
-            <h3>{category.updatedAt}</h3>
+          <div
+            key={category._id}
+            onClick={() => handleClick(category._id)}
+            style={{ cursor: "pointer", margin: "10px", width: "100px" }}
+          >
+            <h2>{category.name}</h2>
+
+            <img
+              src={category.image}
+              alt="img"
+              style={{ width: 100, height: 100 }}
+            />
           </div>
         ))}
       </div>

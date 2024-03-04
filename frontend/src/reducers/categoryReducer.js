@@ -13,6 +13,12 @@ import {
   CATEGORY_UPDATE_SUCCESS,
 } from "../constants/categoryConstants";
 
+const initialState = {
+  loading: false, // Indicates whether the category creation process is ongoing
+  categoryInfo: null, // Holds the created category data on successful creation
+  error: null, // Holds any error message in case of failure
+};
+
 //reducers: first you send request if it is true then it gives you CATEGORY if fails gives you error
 export const categoryListReducer = (state = { category: [] }, action) => {
   switch (action.type) {
@@ -29,15 +35,14 @@ export const categoryListReducer = (state = { category: [] }, action) => {
 };
 
 //2.category create reducer (createcategory)
-export const categoryCreateReducer = (state = {}, action) => {
+export const categoryCreateReducer = (state = initialState, action) => {
   switch (action.type) {
     case CATEGORY_CREATE_REQUEST:
-      return { loading: true };
+      return { ...state, loading: true, error: null };
     case CATEGORY_CREATE_SUCCESS:
-      return { loading: false, success: true };
+      return { loading: false, categoryInfo: action.payload, error: null };
     case CATEGORY_CREATE_FAIL:
-      return { loading: false, error: action.payload };
-
+      return { loading: false, categoryInfo: null, error: action.payload };
     default:
       return state;
   }

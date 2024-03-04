@@ -56,7 +56,7 @@ export const listCategory = () => async (dispatch, getState) => {
 //4. action for creating note
 
 export const createCategoryAction =
-  (name, content, category, imageBase64) => async (dispatch, getState) => {
+  (name, image) => async (dispatch, getState) => {
     try {
       dispatch({
         type: CATEGORY_CREATE_REQUEST,
@@ -78,7 +78,7 @@ export const createCategoryAction =
       //we are making api call from /api/CATEGORY/create, we are sending title, conent, category that we recived from the user to the backend then we are passing config object wich created on line 60.
       const { data } = await axios.post(
         `http://localhost:5000/api/categories/`,
-        { name, imageBase64 },
+        { name, image },
         config
       );
 

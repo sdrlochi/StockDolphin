@@ -3,21 +3,12 @@ const Category = require("../model/categoryModel");
 // Create a new category
 exports.createCategory = async (req, res) => {
   try {
-    const { name, imageBase64 } = req.body;
+    const { name, image } = req.body;
 
-    if (!imageBase64) {
-      return res.status(400).json({ message: "ImageBase64 is required" });
-    }
-
-    // Decode base64 image string to Buffer
-    const imageBuffer = Buffer.from(imageBase64, "base64");
     const category = new Category({
       user: req.user._id,
       name,
-      imageBase64: {
-        data: imageBuffer,
-        contentType: "image/jpg",
-      },
+      image,
     });
 
     const createdCategory = await category.save();
@@ -30,7 +21,7 @@ exports.createCategory = async (req, res) => {
 // Get all categories
 exports.getAllCategories = async (req, res) => {
   try {
-    const categories = await Category.find({ user: req.user._id });
+    const categories = (await Category.find({ user: req.user._id })).reverse();
     res.status(200).json(categories);
   } catch (error) {
     res.status(500).json({ message: error.message });
