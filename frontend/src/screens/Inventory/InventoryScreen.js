@@ -52,7 +52,7 @@ const InventoryScreen = () => {
   ]);
 
   return (
-    <div style={{display: 'flex', flexDirection: "row"}}>
+    <div style={{ display: "flex", flexDirection: "row" }}>
       <Header />
       <div
         style={{
@@ -64,6 +64,7 @@ const InventoryScreen = () => {
       >
         {category?.map((category) => (
           <div onClick={handleClick} className="box" key={category._id}>
+            <img alt="img" src={category.imageBase64}/>
             <h1 className="text">{category.name}</h1>
             <h3>{category.updatedAt}</h3>
           </div>

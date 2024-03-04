@@ -2,13 +2,22 @@ const Category = require("../model/categoryModel");
 
 // Create a new category
 exports.createCategory = async (req, res) => {
-  const { name, imagePath } = req.body;
-
   try {
+    const { name, imageBase64 } = req.body;
+
+    if (!imageBase64) {
+      return res.status(400).json({ message: "ImageBase64 is required" });
+    }
+
+    // Decode base64 image string to Buffer
+    const imageBuffer = Buffer.from(imageBase64, "base64");
     const category = new Category({
       user: req.user._id,
       name,
-      imagePath,
+      imageBase64: {
+        data: imageBuffer,
+        contentType: "image/jpg",
+      },
     });
 
     const createdCategory = await category.save();

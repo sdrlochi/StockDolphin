@@ -6,9 +6,9 @@ const categorySchema = new mongoose.Schema(
       type: String,
       required: [true, "Name is required"],
     },
-    imagePath: {
-      type: String,
-      required: false, // Depending on whether you want to make the image mandatory
+    imageBase64: {
+      data: Buffer, // Storing image data as Buffer
+      contentType: String, // Mime type of the image
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
