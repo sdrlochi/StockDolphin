@@ -21,6 +21,8 @@ import {
   orderUpdateReducer,
 } from "./reducers/orderReducer";
 
+import { viewModeReducer } from "./reducers/viewReducer";
+
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
@@ -32,10 +34,11 @@ const reducer = combineReducers({
   orderList: orderListReducer,
   orderUpdate: orderUpdateReducer,
   orderDelete: orderDeleteReducer,
+  viewMode: viewModeReducer,
 });
 
 const userInfoFromStrage = localStorage.getItem("userInfo")
-  ? JSON.parse(localStorage.getItem("userInfo"))
+  ? JSON.parse(localStorage.getItem("userInfo", "viewMode"))
   : null;
 
 const initialState = {

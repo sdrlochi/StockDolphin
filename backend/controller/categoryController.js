@@ -1,4 +1,15 @@
 const Category = require("../model/categoryModel");
+const moment = require("moment");
+
+const formatDate = (date) => {
+  const d = new Date(date);
+  const year = d.getFullYear();
+  const month = ("0" + (d.getMonth() + 1)).slice(-2); // months are 0-based
+  const day = ("0" + d.getDate()).slice(-2);
+  const hour = ("0" + d.getHours()).slice(-2);
+  const minute = ("0" + d.getMinutes()).slice(-2);
+  return `${day}/${month}/${year} ${hour}:${minute}`;
+};
 
 // Create a new category
 exports.createCategory = async (req, res) => {
@@ -21,7 +32,30 @@ exports.createCategory = async (req, res) => {
 // Get all categories
 exports.getAllCategories = async (req, res) => {
   try {
-    const categories = (await Category.find({ user: req.user._id })).reverse();
+    // Fetch all categories for the user
+    const categoryDocs = await Category.find({ user: req.user._id });
+
+    // Format dates and reverse the array to maintain your original order if needed
+    const categories = categoryDocs
+      .map((doc) => {
+        let category = doc.toObject(); // Convert to plain JavaScript object
+
+        // Format the createdAt and updatedAt dates with moment
+        if (category.createdAt) {
+          category.createdAt = moment(category.createdAt).format(
+            "DD/MM/YYYY HH:mm"
+          );
+        }
+        if (category.updatedAt) {
+          category.updatedAt = moment(category.updatedAt).format(
+            "DD/MM/YYYY HH:mm"
+          );
+        }
+
+        return category;
+      })
+      .reverse(); // Reverse the array to maintain the original order if needed
+
     res.status(200).json(categories);
   } catch (error) {
     res.status(500).json({ message: error.message });

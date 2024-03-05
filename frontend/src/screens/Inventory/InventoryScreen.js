@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { listCategory } from "../../actions/categoryAction";
 import { useNavigate } from "react-router-dom";
 import "../Inventory/InventoryScreen.css";
-import Header from "../../componenets/header.js/Header";
+import Header from "../../componenets/header/Header";
+import ModalComponent from "../../componenets/modal/modalComponent";
+import AddNew from "../../assets/AddNew.svg";
 
 const InventoryScreen = () => {
   const dispatch = useDispatch();
@@ -11,6 +13,7 @@ const InventoryScreen = () => {
 
   // const [name, setName] = useState();
   // const [images, serImages] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const categoryList = useSelector((state) => state.categoryList);
   const { category } = categoryList;
@@ -22,28 +25,23 @@ const InventoryScreen = () => {
   const categoryCreate = useSelector((state) => state.categoryCreate);
   const { success: successCreate } = categoryCreate;
 
-  // const noteUpdate = useSelector((state) => state.noteUpdate);
-  // const { success: successUpdate } = noteUpdate;
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
 
-  // const noteDelete = useSelector((state) => state.noteDelete);
-  // const { success: successDelete } = noteDelete;
-
-  // const deleteHandler = (id) => {
-  //   if (window.confirm("Are you sure?")) {
-  //     dispatch(deleteNoteAction(id));
-  //   }
-  // };
-
-  console.log(category);
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   const handleClick = () => {
     navigate("/item");
   };
 
   useEffect(() => {
-    dispatch(listCategory());
     if (!userInfo) {
       navigate("/");
+    } else {
+      dispatch(listCategory());
     }
   }, [
     dispatch,
@@ -55,31 +53,49 @@ const InventoryScreen = () => {
   ]);
 
   return (
-    <div style={{ display: "flex", flexDirection: "row" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        backgroundColor: "blue",
+      }}
+    >
       <Header />
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          overflow: "auto",
-          height: "100vh",
-        }}
-      >
-        {category?.map((category) => (
-          <div
-            key={category._id}
-            onClick={() => handleClick(category._id)}
-            style={{ cursor: "pointer", margin: "10px", width: "100px" }}
-          >
-            <h2>{category.name}</h2>
+      <div className="secondContainerDiv">
+        <p className="pageHeader">Inventory</p>
+        <div className="line" />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            marginRight: 80,
+            marginTop: 10,
+          }}
+        >
+          <button className="categoryButton" onClick={handleOpenModal}>
+            <div className="rectangle">
+              <img alt="icon" src={AddNew} />
+            </div>
 
-            <img
-              src={category.image}
-              alt="img"
-              style={{ width: 100, height: 100 }}
-            />
-          </div>
-        ))}
+            <p className="buttonText">ADD CATEGORY</p>
+          </button>
+          <ModalComponent isOpen={isModalOpen} onClose={handleCloseModal} />
+        </div>
+        <div className="mainCardDiv">
+          {category?.map((category) => (
+            <div
+              className="containerDiv"
+              key={category._id}
+              onClick={() => handleClick(category._id)}
+            >
+              <img src={category.image} alt="img" />
+              <p className="header">{category.name}</p>
+              <p className="item">3 Items | € 338.00</p>
+              <p className="updatedHeader">Updated At:</p>
+              <p className="updatedAt">{category.updatedAt}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

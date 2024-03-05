@@ -1,0 +1,64 @@
+.mainContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.secondContainer {
+  background-color: #fff;
+
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 600px;
+  height: 490px;
+}
+
+.modalHeader {
+  width: 600px;
+  height: 70px;
+  background-color: rgba(83, 168, 86, 1);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.addCategoryHeader {
+  font-family: "Poppins", sans-serif;
+  color: rgba(255, 255, 255, 1);
+  font-size: 28px;
+  margin-left: 20px;
+}
+
+.nameInput {
+  border-bottom: 2px;
+  border: 0;
+  border-bottom-width: 2px;
+  border-color: rgba(153, 153, 153, 1);
+  border-style: inset;
+  width: 538px;
+  height: 50px;
+  margin-top: 25px;
+}
+
+.nameInput::placeholder {
+  color: rgba(62, 65, 83, 1);
+  font-size: 30px;
+}
+
+.lineModal {
+  border-color: rgba(153, 153, 153, 1);
+  border-width: 1px;
+  border-style: solid;
+  margin-top: 40px;
+}

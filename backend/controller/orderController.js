@@ -8,7 +8,7 @@ exports.createOrder = async (req, res) => {
     const newOrder = new Order({
       user: req.user._id,
       name,
-      category,
+      category: req.category._id,
     });
 
     await newOrder.save();
@@ -21,9 +21,9 @@ exports.createOrder = async (req, res) => {
 // Get all orders
 exports.getAllOrders = async (req, res) => {
   try {
-    const orders = await Order.find({ user: req.user._id }).populate(
-      "category"
-    );
+    const orders = await Order.find({
+      user: req.user._id,
+    }).populate("category");
     res.status(200).json(orders);
   } catch (error) {
     res.status(500).json({ message: error.message });

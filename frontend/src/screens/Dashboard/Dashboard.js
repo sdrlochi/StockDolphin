@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { logout } from "../../actions/userActions";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import Header from "../../componenets/header.js/Header";
+import Header from "../../componenets/header/Header";
 import { createCategoryAction } from "../../actions/categoryAction";
 import ModalComponent from "../../componenets/modal/modalComponent";
 
@@ -20,19 +18,9 @@ const Dashboard = () => {
   const [image, setImg] = useState("");
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const categoryCreate = useSelector((state) => state.categoryCreate);
   const { error } = categoryCreate;
-
-  const logoutHandler = () => {
-    dispatch(logout());
-    navigate("/");
-  };
-
-  const inventoryScreen = () => {
-    navigate("/inventory");
-  };
 
   const imageBase64 = async (file) => {
     const reader = new FileReader();
@@ -64,8 +52,7 @@ const Dashboard = () => {
 
       <div>
         <h1>Welocme</h1>
-        <button onClick={logoutHandler}>Logout</button>
-        <button onClick={inventoryScreen}>Inventory</button>
+
         <div>
           <h2>Create Category</h2>
 

@@ -12,7 +12,9 @@ const categorySchema = new mongoose.Schema(
       ref: "User",
     },
     image: String,
+    
   },
+
   { timestamps: true }
 );
 
