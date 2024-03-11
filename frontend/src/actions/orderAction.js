@@ -5,7 +5,7 @@ import {
   ORDER_LIST_FAIL,
 } from "../constants/orderConstants";
 
-export const listOrder = () => async (dispatch, getState) => {
+export const listOrders = (categoryId) => async (dispatch, getState) => {
   try {
     dispatch({
       //in dispatch we are disparching the action CATEGORY_LIST_REQUEST, its going to send loading to true
@@ -24,7 +24,7 @@ export const listOrder = () => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get(
-      `http://localhost:5000/api/orders/`,
+      `http://localhost:5000/api/categories/${categoryId}/orders`,
       config
     );
 

@@ -63,18 +63,16 @@ exports.getAllCategories = async (req, res) => {
 };
 
 // Get a single category by id
-exports.getCategoryById = async (req, res) => {
+exports.getCategory = async (req, res) => {
+  const _id = req.params.id;
   try {
-    const category = await Category.findById(req.params.id);
-    if (category.user.toString() !== req.user._id.toString()) {
-      res.status(401);
-      throw new Error("You can't perform this action");
+    const category = await Category.findOne({ _id, user: req.user._id });
+    if (!category) {
+      return res.status(404).send();
     }
-    if (!category)
-      return res.status(404).json({ message: "Category not found" });
-    res.status(200).json(category);
+    res.send(category);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).send(error);
   }
 };
 

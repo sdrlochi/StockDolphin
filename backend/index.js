@@ -32,8 +32,8 @@ mongoose
   .catch((error) => console.log(error));
 
 // app.use("/auth", AuthRoute);
-app.use("/api/categories", categoryRoutes);
-app.use("/api/orders", orderRoutes);
+app.use("/api", categoryRoutes);
+app.use("/api", orderRoutes);
 app.use("/api/suppliers", supplierRoutes);
 app.use("/api/items", itemRoute);
 app.use("/api/users", userRoutes);

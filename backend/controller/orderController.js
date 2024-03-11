@@ -2,13 +2,10 @@ const Order = require("../model/orderModel");
 
 // Create a new order
 exports.createOrder = async (req, res) => {
-  const { name, category } = req.body;
-
   try {
     const newOrder = new Order({
-      user: req.user._id,
-      name,
-      category: req.category._id,
+      ...req.body,
+      category: req.params.categoryId,
     });
 
     await newOrder.save();
@@ -18,22 +15,12 @@ exports.createOrder = async (req, res) => {
   }
 };
 
-// Get all orders
-exports.getAllOrders = async (req, res) => {
-  try {
-    const orders = await Order.find({
-      user: req.user._id,
-    }).populate("category");
-    res.status(200).json(orders);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
 // Get a single order by id
 exports.getOrderById = async (req, res) => {
   try {
-    const order = await Order.findById(req.params.id).populate("category");
+    const order = await Order.find({
+      category: req.params.categoryId,
+    }).populate("category");
     if (!order) return res.status(404).json({ message: "Order not found" });
     res.status(200).json(order);
   } catch (error) {
@@ -57,7 +44,10 @@ exports.updateOrder = async (req, res) => {
 // Delete an order by id
 exports.deleteOrder = async (req, res) => {
   try {
-    const order = await Order.findByIdAndDelete(req.params.id);
+    const order = await Order.findByIdAndDelete({
+      _id: req.params.id,
+      category: req.params.categoryId,
+    });
     if (!order) return res.status(404).json({ message: "Order not found" });
     res.status(200).json({ message: "Order deleted successfully" });
   } catch (error) {

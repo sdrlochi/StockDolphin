@@ -1,21 +1,34 @@
 const express = require("express");
 const router = express.Router();
 const orderController = require("../controller/orderController");
-const {protect} = require("../middleware/userMiddleware")
+const { protect } = require("../middleware/userMiddleware");
 
 // POST request to create a new order
-router.post("/",protect, orderController.createOrder);
-
-// GET request for all orders
-router.get("/",protect, orderController.getAllOrders);
+router.post(
+  "/categories/:categoryId/orders",
+  protect,
+  orderController.createOrder
+);
 
 // GET request for a single order by id
-router.get("/:id", orderController.getOrderById);
+router.get(
+  "/categories/:categoryId/orders",
+  protect,
+  orderController.getOrderById
+);
 
 // PUT request to update an order by id
-router.put("/:id", orderController.updateOrder);
+router.put(
+  "/categories/:categoryId/orders/:id",
+  protect,
+  orderController.updateOrder
+);
 
 // DELETE request to delete an order by id
-router.delete("/:id", orderController.deleteOrder);
+router.delete(
+  "/categories/:categoryId/orders/:id",
+  protect,
+  orderController.deleteOrder
+);
 
 module.exports = router;

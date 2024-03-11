@@ -14,16 +14,15 @@ import {
 } from "../constants/categoryConstants";
 
 const initialState = {
-  loading: false, // Indicates whether the category creation process is ongoing
-  categoryInfo: null, // Holds the created category data on successful creation
-  error: null, // Holds any error message in case of failure
+  loading: false,
+  categories: [],
+  error: "",
 };
-
 //reducers: first you send request if it is true then it gives you CATEGORY if fails gives you error
-export const categoryListReducer = (state = { category: [] }, action) => {
+export const categoryListReducer = (state = initialState, action) => {
   switch (action.type) {
     case CATEGORY_LIST_REQUEST:
-      return { loading: true };
+      return { loading: true, categories: [] };
     case CATEGORY_LIST_SUCCESS:
       return { loading: false, category: action.payload };
     case CATEGORY_LIST_FAIL:

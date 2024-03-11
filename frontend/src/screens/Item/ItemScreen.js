@@ -1,20 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { useNavigate } from "react-router-dom";
 import "../Item/OrdersScreen.css";
-import { listOrder } from "../../actions/orderAction";
+import { listOrders } from "../../actions/orderAction";
 
-const ItemScreen = () => {
+const ItemScreen = ({ categoryId }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
-  const orderList = useSelector((state) => state.orderList);
+  const orderList = useSelector((state) => state.listOrder);
   const { order } = orderList;
-
-  //when you logout thorw us back to login screen
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
 
   // const categoryCreate = useSelector((state) => state.categoryCreate);
   // const { success: successCreate } = categoryCreate;
@@ -38,34 +32,32 @@ const ItemScreen = () => {
   // };
 
   useEffect(() => {
-    dispatch(listOrder());
-    if (!userInfo) {
-      navigate("/");
+    if (categoryId) {
+      dispatch(listOrders(categoryId));
     }
-  }, [
-    dispatch,
-    // successCreate,
-    navigate,
-    userInfo,
-    // successUpdate,
-    // successDelete,
-  ]);
+  }, [dispatch, categoryId]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      {order?.map((order) => (
-        <div className="box" key={order._id}>
-          <h1 className="text">{order.name}</h1>
-          <h3>{order.orderedAt}</h3>
+    <div>
+      {order && order.length > 0 ? (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {order.map((order) => (
+            <div className="box" key={order._id}>
+              <h1 className="text">{order.name}</h1>
+              <h3>{order.orderedAt}</h3>
+            </div>
+          ))}
         </div>
-      ))}
+      ) : (
+        <p>No product</p>
+      )}
     </div>
   );
 };

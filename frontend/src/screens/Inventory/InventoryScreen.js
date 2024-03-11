@@ -25,6 +25,8 @@ const InventoryScreen = () => {
   const categoryCreate = useSelector((state) => state.categoryCreate);
   const { success: successCreate } = categoryCreate;
 
+  console.log(category)
+
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
@@ -82,19 +84,20 @@ const InventoryScreen = () => {
           <ModalComponent isOpen={isModalOpen} onClose={handleCloseModal} />
         </div>
         <div className="mainCardDiv">
-          {category?.map((category) => (
-            <div
-              className="containerDiv"
-              key={category._id}
-              onClick={() => handleClick(category._id)}
-            >
-              <img src={category.image} alt="img" />
-              <p className="header">{category.name}</p>
-              <p className="item">3 Items | € 338.00</p>
-              <p className="updatedHeader">Updated At:</p>
-              <p className="updatedAt">{category.updatedAt}</p>
-            </div>
-          ))}
+          {category &&
+            category.map((category) => (
+              <div
+                className="containerDiv"
+                key={category._id}
+                onClick={() => handleClick(category._id)}
+              >
+                <img src={category.image} alt="img" />
+                <p className="header">{category.name}</p>
+                <p className="item">3 Items | € 338.00</p>
+                <p className="updatedHeader">Updated At:</p>
+                <p className="updatedAt">{category.updatedAt}</p>
+              </div>
+            ))}
         </div>
       </div>
     </div>

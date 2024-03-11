@@ -13,15 +13,21 @@ import {
   ORDER_UPDATE_SUCCESS,
 } from "../constants/orderConstants";
 
+const initialState = {
+  loading: false,
+  orders: [],
+  error: "",
+};
+
 //reducers: first you send request if it is true then it gives you ORDER if fails gives you error
-export const orderListReducer = (state = {}, action) => {
+export const orderListReducer = (state = initialState, action) => {
   switch (action.type) {
     case ORDER_LIST_REQUEST:
-      return { loading: true };
+      return { ...state, loading: true };
     case ORDER_LIST_SUCCESS:
-      return { loading: false, order: action.payload };
+      return { loading: false, orders: action.payload };
     case ORDER_LIST_FAIL:
-      return { loading: false, error: action.payload };
+      return { loading: false, error: action.payload, orders: [] };
 
     default:
       return state;
