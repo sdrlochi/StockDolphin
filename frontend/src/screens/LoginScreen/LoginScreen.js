@@ -15,8 +15,6 @@ const LoginScreen = ({ history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  
-
   const handleClick = () => {
     navigate("/register");
   };
@@ -35,8 +33,19 @@ const LoginScreen = ({ history }) => {
 
   return (
     <div className="loginContainer">
-      <form onSubmit={submitHandler}>
-        <h3 style={{ marginBottom: "3px" }}>Email:</h3>
+      <form
+        onSubmit={submitHandler}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#9cdb9e",
+          padding: "50px",
+          borderRadius: "10px",
+        }}
+      >
+        <h2>Login</h2>
         <div className="input-container">
           <input
             className="custom-input"
@@ -46,7 +55,7 @@ const LoginScreen = ({ history }) => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <h3 style={{ marginBottom: "3px" }}>Password:</h3>
+
         <div className="input-container">
           <input
             className="custom-input"
