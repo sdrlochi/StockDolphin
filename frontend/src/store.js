@@ -23,6 +23,7 @@ import {
 } from "./reducers/orderReducer";
 
 import { viewModeReducer } from "./reducers/viewReducer";
+import { categoryDetailsReducer } from "./reducers/categoryDetailReducer";
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
@@ -30,6 +31,7 @@ const reducer = combineReducers({
   categoryCreate: categoryCreateReducer,
   categoryDelete: categoryDeleteReducer,
   categoryList: categoryListReducer,
+  categoryDetail: categoryDetailsReducer,
   categoryUpdate: categoryUpdateReducer,
   orderCreate: orderCreateReducer,
   listOrder: orderListReducer,
@@ -39,7 +41,7 @@ const reducer = combineReducers({
 });
 
 const userInfoFromStrage = localStorage.getItem("userInfo")
-  ? JSON.parse(localStorage.getItem("userInfo", "viewMode"))
+  ? JSON.parse(localStorage.getItem("userInfo", "viewMode", "categoryList"))
   : null;
 
 const initialState = {

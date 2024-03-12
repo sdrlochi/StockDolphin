@@ -17,7 +17,7 @@ const Header = () => {
   };
 
   const inventoryScreen = () => {
-    navigate("/inventory");
+    navigate("/categories");
   };
 
   const dashboardScreen = () => {

@@ -12,6 +12,9 @@ import {
   CATEGORY_UPDATE_FAIL,
   CATEGORY_UPDATE_REQUEST,
   CATEGORY_UPDATE_SUCCESS,
+  CATEGORY_DETAIL_FAIL,
+  CATEGORY_DETAIL_REQUEST,
+  CATEGORY_DETAIL_SUCCESS,
 } from "../constants/categoryConstants";
 
 export const listCategory = () => async (dispatch, getState) => {
@@ -36,7 +39,7 @@ export const listCategory = () => async (dispatch, getState) => {
       `http://localhost:5000/api/categories/`,
       config
     );
-
+    localStorage.setItem("categoryList", JSON.stringify(data));
     dispatch({
       type: CATEGORY_LIST_SUCCESS,
       payload: data,
@@ -52,6 +55,36 @@ export const listCategory = () => async (dispatch, getState) => {
     });
   }
 };
+
+export const getCategoryDetails =
+  (categoryId) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: CATEGORY_DETAIL_REQUEST });
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.get(`/api/categories/${categoryId}`, config);
+      dispatch({
+        type: CATEGORY_DETAIL_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: CATEGORY_DETAIL_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 
 //4. action for creating note
 

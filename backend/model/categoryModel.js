@@ -11,8 +11,13 @@ const categorySchema = new mongoose.Schema(
       required: true,
       ref: "User",
     },
+    orders: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Order",
+      },
+    ],
     image: String,
-    
   },
 
   { timestamps: true }

@@ -1,7 +1,7 @@
 .secondContainerDiv {
   display: flex;
   flex-direction: column;
-  overflow: auto;
+  overflow-x: auto;
   height: 100vh;
   width: 100%;
   background-color: rgba(234, 234, 234, 1);
@@ -19,10 +19,11 @@
 
 .mainCardDiv {
   display: flex;
-  flex-direction: row;
   margin: 0;
   margin-left: 140px;
+  margin-right: 80px;
   gap: 30px;
+  overflow: auto;
 }
 
 .line {
@@ -39,10 +40,11 @@
   height: 270px;
   border-radius: 10px;
   margin: 0;
-
   background-color: white;
   box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.25);
-  margin-top: 180px;
+  list-style: none;
+  
+  /* margin-top: 180px; */
 }
 
 .containerDiv img {
@@ -131,4 +133,26 @@
   font-size: 18px;
   letter-spacing: 0.3px;
   margin-right: 10px;
+}
+
+.orders-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px; /* Adjust the gap between items */
+
+  margin: 0;
+  margin-top: 170px;
+  margin-left: 140px;
+  margin-right: 80px;
+  margin-bottom: 200px;
+}
+
+.order-item {
+  flex: 0 0 auto; /* Prevent items from shrinking and allow them to grow */
+  width: calc(20% - 10px); /* Adjust width as per requirement, subtract gap */
+}
+
+.list {
+  list-style: none;
+
 }

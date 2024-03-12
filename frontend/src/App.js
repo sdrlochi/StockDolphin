@@ -16,8 +16,8 @@ function App() {
         <Route path="/" Component={LoginScreen} exact />
         <Route path="/dashboard" Component={Dashboard} />
         <Route path="/register" Component={RegisterScreen} />
-        <Route path="/inventory" Component={InventoryScreen} />
-        <Route path="/item" Component={ItemScreen} />
+        <Route path="/categories" Component={InventoryScreen} />
+        <Route path="/categories/:id" Component={ItemScreen} />
       </Routes>
     </BrowserRouter>
   );

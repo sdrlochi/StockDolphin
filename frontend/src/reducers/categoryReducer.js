@@ -15,14 +15,14 @@ import {
 
 const initialState = {
   loading: false,
-  categories: [],
+  categoires: [],
   error: "",
 };
 //reducers: first you send request if it is true then it gives you CATEGORY if fails gives you error
 export const categoryListReducer = (state = initialState, action) => {
   switch (action.type) {
     case CATEGORY_LIST_REQUEST:
-      return { loading: true, categories: [] };
+      return { ...state, loading: true };
     case CATEGORY_LIST_SUCCESS:
       return { loading: false, category: action.payload };
     case CATEGORY_LIST_FAIL:

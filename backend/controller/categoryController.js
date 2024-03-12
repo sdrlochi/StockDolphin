@@ -66,7 +66,10 @@ exports.getAllCategories = async (req, res) => {
 exports.getCategory = async (req, res) => {
   const _id = req.params.id;
   try {
-    const category = await Category.findOne({ _id, user: req.user._id });
+    const category = await Category.findOne({
+      _id,
+      user: req.user._id,
+    }).populate("orders");
     if (!category) {
       return res.status(404).send();
     }
