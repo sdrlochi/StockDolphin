@@ -19,7 +19,14 @@ import Orders from "./pages/Orders/Orders";
 // import Reports from './pages/Reports';
 
 const MainContent = styled.div`
-  margin-left: 250px;
+  background-color: #eaeaea;
+  width: 100%;
+  height: 100%;
+  max-width: 1980px;
+  max-height: 1080px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   padding: 20px;
 `;
 
@@ -29,20 +36,18 @@ const AppWrapper = () => {
   return (
     <Router>
       {userInfo ? (
-        <>
+        <MainContent>
           <Header />
-          <MainContent>
-            <Routes>
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/inventory" element={<Inventory />} />
-              <Route path="/suppliers" element={<Suppliers />} />
-              {/* <Route path="/reports" element={<Reports />} /> */}
-              <Route path="/items/:categoryId" element={<Items />} />
-              <Route path="/orders/:itemId" element={<Orders />} />
-              <Route path="*" element={<Navigate to="/dashboard" />} />
-            </Routes>
-          </MainContent>
-        </>
+          <Routes>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/inventory" element={<Inventory />} />
+            <Route path="/suppliers" element={<Suppliers />} />
+            {/* <Route path="/reports" element={<Reports />} /> */}
+            <Route path="/items/:categoryId" element={<Items />} />
+            <Route path="/orders/:itemId" element={<Orders />} />
+            <Route path="*" element={<Navigate to="/dashboard" />} />
+          </Routes>
+        </MainContent>
       ) : (
         <Routes>
           <Route path="/login" element={<Login />} />

@@ -1,52 +1,13 @@
+import "./Header.css";
 import React from "react";
+import { Link, Outlet, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
 import { logout } from "../slices/userSlice";
-import styled from "styled-components";
-
-const Sidebar = styled.div`
-  width: 350px;
-  height: 100vh;
-  background-color: #53a856;
-  color: white;
-  display: flex;
-  text-align: center;
-
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-`;
-
-const StyledNavLink = styled(NavLink)`
-  width: 280px;
-  height: 60px;
-  background-color: #efefef;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  text-decoration: none;
-
-  &.active {
-    background-color: #555;
-  }
-
-  &:hover {
-    background-color: #555;
-  }
-`;
-
-const LogoutButton = styled.button`
-  padding: 20px;
-  color: white;
-  background-color: #333;
-  border: none;
-
-  &:hover {
-    background-color: #555;
-  }
-`;
+import Logo from "../assets/logo1.png";
+import DashboardLayout from "../assets/DashboardLayout.png";
+import ProductLayout from "../assets/ProductLayout.png";
+import ComboChart from "../assets/ComboChart.png";
+import Logout from "../assets/Shutdown.png";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -58,77 +19,39 @@ const Header = () => {
   };
 
   return (
-    <Sidebar>
-      <StyledNavLink
-        to="/dashboard"
-        className={({ isActive }) => (isActive ? "active" : "")}
-      >
-        <p
-          style={{
-            color: "black",
-            marginLeft: "20px",
-            fontSize: "26px",
-            fontWeight: 400,
-          }}
-        >
-          Dashboard
-        </p>
-      </StyledNavLink>
-      <StyledNavLink
-        to="/inventory"
-        className={({ isActive }) => (isActive ? "active" : "")}
-      >
-        <p
-          style={{
-            color: "black",
-            marginLeft: "20px",
-            fontSize: "26px",
-            fontWeight: 400,
-          }}
-        >
-          Inventory
-        </p>
-      </StyledNavLink>
-      <StyledNavLink
-        to="/suppliers"
-        className={({ isActive }) => (isActive ? "active" : "")}
-      >
-        <p
-          style={{
-            color: "black",
-            marginLeft: "20px",
-            fontSize: "26px",
-            fontWeight: 400,
-          }}
-        >
-          Suppliers
-        </p>
-      </StyledNavLink>
-      <StyledNavLink
-        style={{
-          color: "black",
-
-          fontSize: "26px",
-          fontWeight: 400,
-        }}
-        to="/reports"
-        className={({ isActive }) => (isActive ? "active" : "")}
-      >
-        Reports
-      </StyledNavLink>
-      <LogoutButton
-        onClick={handleLogout}
-        style={{
-          width: "280px",
-          height: "60px",
-          backgroundColor: "#EFEFEF",
-          borderRadius: "10px",
-        }}
-      >
-        Logout
-      </LogoutButton>
-    </Sidebar>
+    <>
+      <div className="menu-panel">
+        <Link to="/dashboard">
+          <img className="logo" src={Logo} alt="logoItLabs" />
+        </Link>
+        <div className="sidebar-navigation">
+          <NavLink className="dashboard-link" to="/dashboard">
+            <img
+              className="dashboard-img"
+              src={DashboardLayout}
+              alt="dashboard-layout"
+            />
+            <h1>Dashboard</h1>
+          </NavLink>
+          <NavLink className="items-nav-link" to="/inventory">
+            <img className="product" src={ProductLayout} alt="product" />
+            <h1>Inventory</h1>
+          </NavLink>
+          <NavLink className="reports-link" to="/reports">
+            <img className="combo-chart" src={ComboChart} alt="combo-chart" />
+            <h1>Reports</h1>
+          </NavLink>
+          <NavLink className="suppliers-link" to="/suppliers">
+            <h1>Suppliers</h1>
+          </NavLink>
+          <NavLink className="signout" to="/" onClick={handleLogout}>
+            <img className="shutdown" src={Logout} alt="shutdown" />
+            <h1>Sign Out</h1>
+          </NavLink>
+        </div>
+      </div>
+      <Outlet />
+    </>
   );
 };
-
 export default Header;
